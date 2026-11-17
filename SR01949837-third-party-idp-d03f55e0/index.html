@@ -20,14 +20,13 @@ button.go{background:var(--ok);border-color:var(--ok);color:#fff}
 #sendbox label{display:grid;gap:4px;font-size:13px;color:var(--mute)}
 #sendbox input{font:inherit;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);padding:8px}
 #sendmsg{font-size:13px;margin:0}#sendmsg:empty{display:none}#sendmsg.err{color:var(--fix)}#sendmsg.ok{color:var(--ok);font-weight:600}
-#sendmsg{font-size:13px;margin:0}#sendmsg.err{color:var(--fix)}#sendmsg.ok{color:var(--ok);font-weight:600}
 .stats{color:var(--mute);font-size:13px;margin-top:4px}
 .hint{margin:8px 0 0;font-size:13px;max-width:80ch}
 main{padding:16px;display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(min(100%,var(--col,340px)),1fr))}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px;min-width:0}
 .card.ok{border-color:var(--ok)}.card.fix{border-color:var(--fix)}
 .img{position:relative;min-width:0;display:flex;justify-content:center;align-items:center;background:repeating-conic-gradient(#0000 0 25%,#8881 0 50%) 0 0/16px 16px;border-radius:6px;padding:6px;cursor:zoom-in}
-.img img{max-width:100%;min-width:0;height:auto;max-height:70vh;display:block;object-fit:contain}
+.img img{width:var(--w);aspect-ratio:var(--ar);max-width:100%;min-width:0;height:auto;max-height:70vh;display:block;object-fit:contain}
 .replay{position:absolute;right:6px;bottom:6px;font-size:12px;padding:4px 8px;border-radius:99px;background:rgba(0,0,0,.65);border:0;color:#fff;cursor:pointer}
 .meta{font-size:12px;color:var(--mute);word-break:break-all}.meta b{color:var(--ink);font-size:14px}
 .marks{display:flex;gap:6px}.marks button{flex:1}
@@ -112,7 +111,7 @@ function render() {
   list.forEach(g => {
     const m = marks[g.file] || {};
     const c = document.createElement("div"); c.className = "card " + (m.s || "");
-    c.innerHTML = `<div class="img"><img loading="lazy" width="${g.w}" height="${g.h}" alt="">
+    c.innerHTML = `<div class="img"><img loading="lazy" alt="" style="--w:${g.w}px;--ar:${g.w}/${g.h}">
         <button class="replay" type="button" title="Play this GIF again">↻ Replay</button></div>
       <div class="meta"><b></b> · ${g.size}<br>${g.file}</div>
       <div class="marks"><button class="okb ${m.s == "ok" ? "on" : ""}" type="button">OK</button><button class="fixb ${m.s == "fix" ? "on" : ""}" type="button">Amends</button></div>
